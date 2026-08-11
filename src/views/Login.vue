@@ -53,14 +53,7 @@
         </el-button>
       </el-form>
 
-      <div class="login-tips">
-        <el-alert
-          title="默认管理员账号: admin / admin123"
-          type="info"
-          :closable="false"
-          show-icon
-        />
-      </div>
+
     </div>
 
     <div class="login-footer">
@@ -73,7 +66,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { User, Lock } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 import { useAuthStore } from '../stores/auth'
 
 const router = useRouter()
@@ -104,6 +97,12 @@ const handleLogin = async () => {
       ElMessage.success('登录成功')
       router.push('/')
     } catch (error) {
+      const msg = error?.response?.data?.message || '用户名或密码错误'
+      ElNotification.error({
+        title: '登录失败',
+        message: msg,
+        duration: 5000
+      })
     } finally {
       loading.value = false
     }

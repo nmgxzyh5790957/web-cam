@@ -118,9 +118,9 @@ export function deleteUser(id) {
 // 根据角色获取默认权限
 function getDefaultPermissions(role) {
   const permissions = {
-    admin: ['view', 'delete', 'mark', 'manage_users', 'manage_config'],
-    editor: ['view', 'delete', 'mark'],
-    viewer: ['view']
+    admin: ['view', 'delete', 'mark', 'manage_users', 'manage_config', 'view_logs'],
+    editor: ['view', 'delete', 'mark', 'view_logs'],
+    viewer: ['view', 'view_logs']
   }
   return permissions[role] || ['view']
 }

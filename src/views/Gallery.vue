@@ -68,7 +68,7 @@
         
         <el-input
           v-model="searchText"
-          placeholder="搜索文件名"
+          placeholder="搜索文件夹"
           size="small"
           clearable
           style="width: 180px"
@@ -524,9 +524,13 @@ const breadcrumbs = computed(() => {
   return crumbs
 })
 
-// 文件夹列表（排序后）
+// 文件夹列表（排序后，支持搜索过滤）
 const folders = computed(() => {
   let result = files.value.filter(f => f.isDirectory)
+  if (searchText.value) {
+    const q = searchText.value.toLowerCase()
+    result = result.filter(f => f.name.toLowerCase().includes(q))
+  }
   return sortFiles(result)
 })
 
@@ -536,10 +540,6 @@ const allFileItems = computed(() => {
   result = sortFiles(result)
   if (filterType.value) {
     result = result.filter(f => f.type === filterType.value)
-  }
-  if (searchText.value) {
-    const q = searchText.value.toLowerCase()
-    result = result.filter(f => f.name.toLowerCase().includes(q))
   }
   return result
 })

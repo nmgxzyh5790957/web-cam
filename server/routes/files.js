@@ -249,7 +249,10 @@ router.post('/marking', authenticate, requirePermission('mark'), (req, res) => {
       return res.status(400).json({ message: '缺少文件路径' })
     }
     
-    const marking = setMarking(filePath, { label, color, note, tags })
+    const marking = setMarking(filePath, {
+      label, color, note, tags,
+      markedBy: req.user.nickname || req.user.username
+    })
     
     addLog({
       type: 'marking',

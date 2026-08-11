@@ -144,7 +144,7 @@
         </el-table-column>
         <el-table-column label="类型" width="110">
           <template #default="{ row }">
-            <el-tag :type="getTypeTagType(row.type)" size="small" round>
+            <el-tag :type="getTypeTagType(row.type)" size="small" round :class="'type-tag-' + row.type">
               {{ getTypeText(row.type) }}
             </el-tag>
           </template>
@@ -164,7 +164,7 @@
         <el-table-column label="操作目标" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">
             <span>{{ row.target || '-' }}</span>
-            <el-tag v-if="row.targetType" size="small" effect="plain" style="margin-left: 6px">
+            <el-tag v-if="row.targetType" size="small" effect="plain" style="margin-left: 6px" :class="{ 'type-tag-user': row.targetType === '用户' }">
               {{ row.targetType }}
             </el-tag>
           </template>
@@ -530,6 +530,18 @@ onMounted(() => {
 .pagination-info {
   font-size: 13px;
   color: #999;
+}
+
+/* 类型标签样式 */
+:deep(.type-tag-user) {
+  color: #fff !important;
+  background-color: #07C160 !important;
+  border-color: #07C160 !important;
+}
+:deep(.type-tag-user.el-tag--plain) {
+  color: #fff !important;
+  background-color: #07C160 !important;
+  border-color: #07C160 !important;
 }
 
 /* 响应式 */

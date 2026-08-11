@@ -66,7 +66,11 @@
               </div>
               
               <div class="marking-time">
-                更新时间：{{ formatDate(item.updatedAt) }}
+                <span v-if="item.markedBy" class="marking-user">
+                  <el-icon><User /></el-icon>
+                  {{ item.markedBy }}
+                </span>
+                <span class="marking-date">更新时间：{{ formatDate(item.updatedAt) }}</span>
               </div>
             </div>
             
@@ -132,6 +136,9 @@
             <el-descriptions-item v-if="previewItem.label" label="标记标签">
               <el-tag :color="previewItem.color" effect="dark">{{ previewItem.label }}</el-tag>
             </el-descriptions-item>
+            <el-descriptions-item v-if="previewItem.markedBy" label="标记用户">
+              {{ previewItem.markedBy }}
+            </el-descriptions-item>
             <el-descriptions-item v-if="previewItem.updatedAt" label="更新时间">
               {{ formatDate(previewItem.updatedAt) }}
             </el-descriptions-item>
@@ -152,7 +159,7 @@
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {
-  Refresh, View, Edit, Delete, Document, VideoPlay
+  Refresh, View, Edit, Delete, Document, VideoPlay, User
 } from '@element-plus/icons-vue'
 import api from '../api'
 import { useAuthStore } from '../stores/auth'
@@ -414,6 +421,22 @@ onMounted(() => {
 
 .marking-time {
   font-size: 12px;
+  color: #c0c4cc;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.marking-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #07C160;
+  font-weight: 500;
+}
+
+.marking-date {
   color: #c0c4cc;
 }
 

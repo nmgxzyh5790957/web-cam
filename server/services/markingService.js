@@ -32,6 +32,7 @@ export function setMarking(filePath, markingData) {
     color: markingData.color || '#409EFF',
     note: markingData.note || '',
     tags: markingData.tags || [],
+    markedBy: markingData.markedBy || '',
     updatedAt: new Date().toISOString()
   }
   

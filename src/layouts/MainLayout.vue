@@ -102,9 +102,10 @@ const authStore = useAuthStore()
 const isCollapse = ref(false)
 
 const allMenuItems = [
+  { path: '/dashboard', title: '首页概览', icon: 'DataAnalysis', permission: 'view' },
   { path: '/gallery', title: '图像浏览', icon: 'Picture', permission: 'view' },
   { path: '/marked', title: '标记内容', icon: 'CollectionTag', permission: 'view' },
-  { path: '/logs', title: '操作日志', icon: 'Document', permission: 'view' },
+  { path: '/logs', title: '操作日志', icon: 'Document', permission: 'view_logs' },
   { path: '/users', title: '用户管理', icon: 'User', permission: 'manage_users' },
   { path: '/settings', title: '系统设置', icon: 'Setting', permission: 'manage_config' }
 ]

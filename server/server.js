@@ -8,6 +8,7 @@ import userRoutes from './routes/users.js'
 import fileRoutes from './routes/files.js'
 import configRoutes from './routes/config.js'
 import logRoutes from './routes/logs.js'
+import statsRoutes from './routes/stats.js'
 import { ensureDataDir } from './services/dataService.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -36,6 +37,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/files', fileRoutes)
 app.use('/api/config', configRoutes)
 app.use('/api/logs', logRoutes)
+app.use('/api/stats', statsRoutes)
 
 // 健康检查
 app.get('/api/health', (req, res) => {
@@ -46,10 +48,12 @@ app.get('/api/health', (req, res) => {
 const distDir = path.join(__dirname, '..', 'dist')
 if (fs.existsSync(distDir)) {
   app.use(express.static(distDir, { maxAge: '1d' }))
-  // SPA 回退：所有非 API 路由返回 index.html
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api/') && !req.path.startsWith('/cache/')) {
+  // SPA 回退：所有非 API/cache 路由返回 index.html
+  app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api/') && !req.path.startsWith('/cache/')) {
       res.sendFile(path.join(distDir, 'index.html'))
+    } else {
+      next()
     }
   })
   console.log('生产模式：前端静态文件已启用')

@@ -11,8 +11,14 @@ const routes = [
   {
     path: '/',
     component: () => import('../layouts/MainLayout.vue'),
-    redirect: '/gallery',
+    redirect: '/dashboard',
     children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/Dashboard.vue'),
+        meta: { title: '首页概览', icon: 'DataAnalysis', permission: 'view' }
+      },
       {
         path: 'gallery',
         name: 'Gallery',
@@ -41,7 +47,7 @@ const routes = [
         path: 'logs',
         name: 'OperationLogs',
         component: () => import('../views/OperationLogs.vue'),
-        meta: { title: '操作日志', icon: 'Document', permission: 'view' }
+        meta: { title: '操作日志', icon: 'Document', permission: 'view_logs' }
       }
     ]
   }
@@ -79,7 +85,7 @@ router.beforeEach((to, from, next) => {
   }
   
   if (to.meta.permission && !authStore.hasPermission(to.meta.permission)) {
-    next('/gallery')
+    next('/dashboard')
     return
   }
   

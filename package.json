@@ -16,6 +16,7 @@
     "basic-ftp": "^6.2.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+    "echarts": "^6.1.0",
     "element-plus": "^2.14.4",
     "express": "^5.2.1",
     "fluent-ffmpeg": "^2.1.3",

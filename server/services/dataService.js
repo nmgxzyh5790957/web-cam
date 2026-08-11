@@ -46,7 +46,7 @@ export function ensureDataDir() {
         password: bcrypt.hashSync('admin123', 10),
         nickname: '系统管理员',
         role: 'admin',
-        permissions: ['view', 'delete', 'mark', 'manage_users', 'manage_config'],
+        permissions: ['view', 'delete', 'mark', 'view_logs', 'manage_users', 'manage_config'],
         createdAt: new Date().toISOString(),
         status: 'active'
       }

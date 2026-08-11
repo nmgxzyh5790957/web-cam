@@ -110,6 +110,7 @@
             <el-checkbox value="view">浏览文件</el-checkbox>
             <el-checkbox value="delete">删除文件</el-checkbox>
             <el-checkbox value="mark">标记内容</el-checkbox>
+            <el-checkbox value="view_logs">操作日志</el-checkbox>
             <el-checkbox value="manage_users">用户管理</el-checkbox>
             <el-checkbox value="manage_config">系统设置</el-checkbox>
           </el-checkbox-group>
@@ -184,9 +185,9 @@ const rules = {
 }
 
 const rolePermissions = {
-  admin: ['view', 'delete', 'mark', 'manage_users', 'manage_config'],
-  editor: ['view', 'delete', 'mark'],
-  viewer: ['view']
+  admin: ['view', 'delete', 'mark', 'view_logs', 'manage_users', 'manage_config'],
+  editor: ['view', 'delete', 'mark', 'view_logs'],
+  viewer: ['view', 'view_logs']
 }
 
 const getRoleText = (role) => {
@@ -202,6 +203,7 @@ const getPermissionText = (perm) => {
     view: '浏览',
     delete: '删除',
     mark: '标记',
+    view_logs: '操作日志',
     manage_users: '用户管理',
     manage_config: '系统设置'
   }[perm] || perm
